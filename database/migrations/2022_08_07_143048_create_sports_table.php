@@ -10,17 +10,20 @@ return new class extends Migration
      * Run the migrations.
      *
      * @return void
-     */
+    */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('sports', function (Blueprint $table) {
             // $table->id();
             $table->uuid("id")->primary()->unique();
-            $table->string('pseudo')->unique();
-            // $table->string('email')->unique();
-            // $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
+            $table->string('type');
+            $table->smallInteger('start_hour', unsigned:true);
+            $table->smallInteger('end_hour', unsigned:true);
+            $table->decimal('glycemia_before', unsigned:true);
+            $table->decimal('glycemia_after', unsigned:true);
+
+            $table->foreignUuid("daily_data_id");
+
             $table->timestamps();
             $table->softDeletes();
         });
@@ -33,6 +36,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('sports');
     }
 };

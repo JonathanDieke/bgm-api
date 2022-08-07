@@ -13,16 +13,20 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('meals', function (Blueprint $table) {
             // $table->id();
             $table->uuid("id")->primary()->unique();
-            $table->string('pseudo')->unique();
-            // $table->string('email')->unique();
-            // $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
+            $table->enum('type', ['first_breakfast', 'breakfast', 'dinner']);
+            $table->smallInteger("hour", unsigned:true);
+            $table->decimal("glycemia_before", unsigned:true);
+            $table->decimal("glycemia_after", unsigned:true);
+            $table->text("content");
+
+            $table->foreignUuid("daily_data_id");
+
             $table->timestamps();
             $table->softDeletes();
+
         });
     }
 
@@ -33,6 +37,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('meals');
     }
 };

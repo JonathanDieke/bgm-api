@@ -13,16 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('daily_data', function (Blueprint $table) {
             // $table->id();
             $table->uuid("id")->primary()->unique();
-            $table->string('pseudo')->unique();
-            // $table->string('email')->unique();
-            // $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
+            $table->smallInteger('nb_hypoglycemia', unsigned:true)->default(0);
+            $table->smallInteger('nb_hyperglycemia', unsigned:true)->default(0);
+            $table->boolean('is_sick')->default(0);
+
+            $table->foreignUuid('user_id');
+
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -33,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('daily_data');
     }
 };
