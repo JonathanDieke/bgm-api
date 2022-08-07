@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreMealRequest;
+use App\Http\Resources\MealCollection;
 use App\Models\Meal;
 use Illuminate\Http\Request;
 
@@ -9,23 +11,29 @@ class MealController extends Controller
 {
     /**
      * Display a listing of the resource.
+     * @return \App\Http\Resources\MealCollection
+     * @return \Illuminate\Http\JsonResponse
      *
-     * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        //
+        $meals = Meal::all();
+        return response()->json(["data" => $meals]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function store(Request $request)
+    public function store(StoreMealRequest $request)
     {
-        //
+        $data = $request->validated();
+
+        $meal = Meal::creat($data);
+
+        return response()->json(["message" => "", "data" => $meal], $status = 201) ;
     }
 
     /**

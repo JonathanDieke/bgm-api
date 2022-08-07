@@ -1,5 +1,11 @@
 - implémenter la logique de connexion (ok)
 - créer les modèles, migrations, factories, controllers... (ok)
+- exposer les api :
+    - meals
+    - sports
+    - sleepings
+    - insulins
+
 
 
 - la glycémie de la table insuline est celle avant ou après la prise de l'insuline ?

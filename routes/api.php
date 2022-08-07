@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MealController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -20,4 +21,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post("/login", [UserController::class, 'login']);
-Route::post("/register", [UserController::class, 'register']); 
+Route::post("/register", [UserController::class, 'register']);
+
+// Route::$dataname('meal.')->prefix('meal')->group(function () {
+//    Route::post('/', 'store')->name('create');
+// });
+Route::apiResource('meal', MealController::class);
