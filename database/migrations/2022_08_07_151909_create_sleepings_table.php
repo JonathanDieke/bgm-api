@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('sleepings', function (Blueprint $table) {
             // $table->id();
-            $table->uuid("id")->primary()->unique();
+            $table->uuid("id")->primary();
             $table->smallInteger('start_hour', unsigned:true);
             $table->smallInteger('end_hour', unsigned:true);
             $table->decimal('glycemia_before', unsigned:true);

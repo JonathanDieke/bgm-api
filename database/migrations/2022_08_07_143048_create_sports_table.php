@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('sports', function (Blueprint $table) {
             // $table->id();
-            $table->uuid("id")->primary()->unique();
+            $table->uuid("id")->primary();
             $table->string('type');
             $table->smallInteger('start_hour', unsigned:true);
             $table->smallInteger('end_hour', unsigned:true);

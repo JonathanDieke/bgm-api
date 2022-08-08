@@ -17,7 +17,7 @@ return new class extends Migration
             // $table->id();
             $table->foreignUuid('role_id');
             $table->foreignUuid('user_id');
-            $table->primary(["user_id", "role_id"])->unique();
+            $table->primary(["user_id", "role_id"]);
             $table->timestamps();
             $table->softDeletes();
         });

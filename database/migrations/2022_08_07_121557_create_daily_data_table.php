@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('daily_data', function (Blueprint $table) {
             // $table->id();
-            $table->uuid("id")->primary()->unique();
+            $table->uuid("id")->primary();
             $table->smallInteger('nb_hypoglycemia', unsigned:true)->default(0);
             $table->smallInteger('nb_hyperglycemia', unsigned:true)->default(0);
             $table->boolean('is_sick')->default(0);

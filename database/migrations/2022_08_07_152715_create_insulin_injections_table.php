@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('insulins', function (Blueprint $table) {
             // $table->id();
-            $table->uuid('id')->primary()->unique();
+            $table->uuid('id')->primary();
             $table->enum('type', ["oral", "injection"]);
             $table->string('mark');
             $table->smallInteger('hour');

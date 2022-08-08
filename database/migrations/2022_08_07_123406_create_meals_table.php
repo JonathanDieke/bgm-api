@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('meals', function (Blueprint $table) {
             // $table->id();
-            $table->uuid("id")->primary()->unique();
+            $table->uuid("id")->primary();
             $table->enum('type', ['first_breakfast', 'breakfast', 'dinner']);
             $table->smallInteger("hour", unsigned:true);
             $table->decimal("glycemia_before", unsigned:true);
