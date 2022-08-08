@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DailyDataController;
 use App\Http\Controllers\MealController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -27,3 +28,4 @@ Route::post("/register", [UserController::class, 'register']);
 //    Route::post('/', 'store')->name('create');
 // });
 Route::apiResource('meal', MealController::class);
+Route::apiResource('daily-data', DailyDataController::class);

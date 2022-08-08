@@ -23,6 +23,7 @@ return new class extends Migration
             $table->foreignUuid('user_id');
 
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

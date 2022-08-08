@@ -15,6 +15,8 @@ class DailyData extends Model
     public $incrementing = false;
     protected $keyType = 'string';
 
+    protected $guarded = [];
+
     /**
     * Get the user that owns the Meal
     *

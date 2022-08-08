@@ -24,6 +24,7 @@ return new class extends Migration
             $table->foreignUuid("daily_data_id");
 
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

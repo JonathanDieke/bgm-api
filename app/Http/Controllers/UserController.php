@@ -10,30 +10,29 @@ use Illuminate\Support\Facades\Auth;
 class UserController extends Controller
 {
     public function login(Request $request){
-        $fields = $request->validate([
-            'email' => 'required|string|email',
+        $data = $request->validate([
+            'pseudo' => 'required|string',
             'password' => 'required|string',
         ]);
 
         // Check email
-        $user = User::where('email', $fields['email'])->first();
+        $user = User::where('pseudo', $data['pseudo'])->first();
 
 
         // Check password
-        if(!$user || !Hash::check($fields['password'], $user->password)) {
+        if(!$user || !Hash::check($data['password'], $user->password)) {
+            echo ("ok");
             return response([
                 'error' => 'Identifiants invalides'
             ], 401);
-        }
-
-        $token = $user->createToken('bgm-api')->plainTextToken;
-        // dd($user);
-        $response = [
-            'token' => $token,
-            'user' => $user,
-        ];
-
-        if(Auth::attempt($fields)){
+        } 
+        
+        if(Auth::attempt(["pseudo" => $data["pseudo"], "password" => $data["password"]])){
+            $token = $user->createToken('bgm-api')->plainTextToken;
+            $response = [
+                'token' => $token,
+                'user' => $user,
+            ];
 
             return response($response, 200);
         }
@@ -42,25 +41,19 @@ class UserController extends Controller
             'errors' => 'Identifiants invalides'
         ], 401);
     }
+
     public function register(Request $request){
-        $fields = $request->validate([
-            'name' => 'required|string',
-            'email' => 'required|email|unique:users,email',
+        $data = $request->validate([
+            'pseudo' => 'required|string',
+            // 'email' => 'required|email|unique:users,email',
             'password' => 'required|string',
         ]);
 
-        $user = User::create([
-            'name' => $fields['name'],
-            'email' => $fields['email'],
-            'password' => Hash::make($fields['password']),
+        $data["password"] = Hash::make($data["password"]);
 
-        ]);
+        $user = User::create($data);
 
-        $response = [
-            'user' => $user,
-        ];
-
-        return response($response, 201);
+        return response()->json($user, 201);
     }
 
 }
