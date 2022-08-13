@@ -6,6 +6,7 @@ use App\Http\Requests\StoreMealRequest;
 use App\Http\Resources\MealCollection;
 use App\Models\Meal;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MealController extends Controller
 {
@@ -19,7 +20,7 @@ class MealController extends Controller
     {
         $meals = Meal::all();
         // return response()->json(["data" => $meals]);
-        return new MealCollection($meals);
+        return new MealCollection(Auth::user()->dailyData->meals);
     }
 
     /**

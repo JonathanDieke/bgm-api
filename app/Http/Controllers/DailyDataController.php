@@ -5,17 +5,24 @@ namespace App\Http\Controllers;
 use App\Models\DailyData;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreDailyDataRequest;
+use App\Http\Resources\DailyDataCollection;
+use Illuminate\Support\Facades\Auth;
 
 class DailyDataController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
+     * @param  \Illuminate\Http\Request  $request
+     *
      * @return \Illuminate\Http\Response
+     * @return \App\Http\Resources\DailyDataCollection
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        // $meals = DailyData::all();
+        // return response()->json(["data" => $meals]);
+        return new DailyDataCollection(Auth::user()->dailyData);
     }
 
     /**
@@ -28,9 +35,16 @@ class DailyDataController extends Controller
     {
         $data = $request->validated();
 
-        $dailyData = DailyData::create($data);
+        if($dailyData = DailyData::where("id", $data["id"])->first()){
+            unset($data["id"]);
+            $dailyData->update($data);
+            return response()->json(["message" => "Mise à jour réussie !", "data" => $dailyData], status:201);
+        }else{
+            $data["user_id"] = $request->user()->id ;
+            $dailyData = DailyData::updateOrCreate(["id" => $data["id"]], $data);
+            return response()->json(["message" => "Enregistrement réussi !", "data" => $dailyData], status:201);
+        }
 
-        return response()->json(["message" => "Enregistrement réussi !", "data" => $dailyData], status:201);
     }
 
     /**

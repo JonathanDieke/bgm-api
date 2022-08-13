@@ -27,7 +27,7 @@ class StoreDailyDataRequest extends FormRequest
             'nb_hypoglycemia' => ["required", "integer", 'min:0', 'max:500'],
             'nb_hyperglycemia' => ["required", "integer", 'min:0', 'max:500'],
             'is_sick' => ["required", "boolean"],
-            'user_id' => ["required", "uuid"],
+            'id' => ["nullable", "uuid"],
         ];
     }
 }

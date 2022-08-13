@@ -21,12 +21,11 @@ class UserController extends Controller
 
         // Check password
         if(!$user || !Hash::check($data['password'], $user->password)) {
-            echo ("ok");
             return response([
-                'error' => 'Identifiants invalides'
+                'message' => 'Identifiants invalides'
             ], 401);
-        } 
-        
+        }
+
         if(Auth::attempt(["pseudo" => $data["pseudo"], "password" => $data["password"]])){
             $token = $user->createToken('bgm-api')->plainTextToken;
             $response = [
@@ -38,15 +37,14 @@ class UserController extends Controller
         }
 
         return response([
-            'errors' => 'Identifiants invalides'
+            'message' => 'Identifiants invalides'
         ], 401);
     }
 
     public function register(Request $request){
         $data = $request->validate([
-            'pseudo' => 'required|string',
-            // 'email' => 'required|email|unique:users,email',
-            'password' => 'required|string',
+            'pseudo' => 'required|string|unique:users,pseudo',
+            'password' => 'required|string|min:3',
         ]);
 
         $data["password"] = Hash::make($data["password"]);

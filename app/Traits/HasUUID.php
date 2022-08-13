@@ -8,5 +8,9 @@ trait HasUUID{
         static::saving(function($model){
             $model->id = (string) Str::uuid() ;
         });
+
+        static::updating(function($model){
+            $model->id = (string) $model->id;
+        });
     }
 }

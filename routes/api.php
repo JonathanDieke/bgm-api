@@ -27,5 +27,9 @@ Route::post("/register", [UserController::class, 'register']);
 // Route::$dataname('meal.')->prefix('meal')->group(function () {
 //    Route::post('/', 'store')->name('create');
 // });
-Route::apiResource('meal', MealController::class);
-Route::apiResource('daily-data', DailyDataController::class);
+
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::apiResource('meal', MealController::class);
+    Route::apiResource('daily-data', DailyDataController::class);
+
+});
