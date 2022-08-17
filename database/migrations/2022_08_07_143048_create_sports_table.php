@@ -22,7 +22,9 @@ return new class extends Migration
             $table->decimal('glycemia_before', unsigned:true);
             $table->decimal('glycemia_after', unsigned:true);
 
-            $table->foreignUuid("daily_data_id");
+            $table->foreignUuid("daily_data_id")
+                    ->constrained()
+                    ->restrictOnDelete();
 
             $table->timestamps();
             $table->softDeletes();

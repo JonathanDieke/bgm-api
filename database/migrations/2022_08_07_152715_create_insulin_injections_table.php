@@ -21,7 +21,9 @@ return new class extends Migration
             $table->smallInteger('hour');
             $table->decimal('glycemia');
 
-            $table->foreignUuid("daily_data_id");
+            $table->foreignUuid("daily_data_id")
+                ->constrained()
+                ->restrictOnDelete();
 
             $table->timestamps();
             $table->softDeletes();

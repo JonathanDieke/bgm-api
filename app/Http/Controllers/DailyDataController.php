@@ -35,13 +35,13 @@ class DailyDataController extends Controller
     {
         $data = $request->validated();
 
-        if($dailyData = DailyData::where("id", $data["id"])->first()){
-            unset($data["id"]);
+        if(isset($data["id"])){
+            $dailyData = DailyData::findOrFail($data["id"]); 
             $dailyData->update($data);
             return response()->json(["message" => "Mise à jour réussie !", "data" => $dailyData], status:201);
         }else{
             $data["user_id"] = $request->user()->id ;
-            $dailyData = DailyData::updateOrCreate(["id" => $data["id"]], $data);
+            $dailyData = DailyData::create($data);
             return response()->json(["message" => "Enregistrement réussi !", "data" => $dailyData], status:201);
         }
 

@@ -5,7 +5,7 @@
     - sports
     - sleepings
     - insulins
-
+- check statuis code de update
 
 
 - la glycémie de la table insuline est celle avant ou après la prise de l'insuline ?

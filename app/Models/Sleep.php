@@ -7,12 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Traits\HasUUID;
 
-class Sleeping extends Model
+class Sleep extends Model
 {
     use HasFactory, HasUUID;
 
     public $incrementing = false;
     protected $keyType = 'string';
+
+    protected $guarded = [];
 
     /**
      * Get the dailyData that owns the Sport

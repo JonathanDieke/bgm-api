@@ -12,6 +12,7 @@ class DailyData extends Model
 {
     use HasFactory, HasUUID;
 
+    public $table = "daily_datas";
     public $incrementing = false;
     protected $keyType = 'string';
 

@@ -30,12 +30,17 @@ class MealController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function store(StoreMealRequest $request)
-    {
+    { 
         $data = $request->validated();
 
-        $meal = Meal::create($data);
-
-        return response()->json(["message" => "Enregistrement réussi !", "data" => $meal], $status = 201) ;
+        if(isset($data["id"])){
+            $meal = Meal::findOrFail($data["id"]);
+            $meal->update($data);
+            return response()->json(["message" => "Mise à jour réussie !", "data" => $meal], status:201);
+        }else{
+            $meal = Meal::create($data);
+            return response()->json(["message" => "Enregistrement réussi !", "data" => $meal], status:201);
+        }
     }
 
     /**

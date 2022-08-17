@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DailyDataController;
 use App\Http\Controllers\MealController;
+use App\Http\Controllers\SleepController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -29,7 +30,8 @@ Route::post("/register", [UserController::class, 'register']);
 // });
 
 Route::middleware(['auth:sanctum'])->group(function () {
-    Route::apiResource('meal', MealController::class);
     Route::apiResource('daily-data', DailyDataController::class);
+    Route::apiResource('meal', MealController::class);
+    Route::apiResource('sleep', SleepController::class);
 
 });
