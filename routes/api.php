@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\DailyDataController;
+use App\Http\Controllers\InsulinController;
 use App\Http\Controllers\MealController;
 use App\Http\Controllers\SleepController;
+use App\Http\Controllers\SportController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -33,5 +35,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::apiResource('daily-data', DailyDataController::class);
     Route::apiResource('meal', MealController::class);
     Route::apiResource('sleep', SleepController::class);
+    Route::apiResource('sport', SportController::class);
+    Route::apiResource('insulin', InsulinController::class);
 
 });

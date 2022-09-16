@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Sport;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreSportRequest;
 
 class SportController extends Controller
 {
@@ -14,18 +15,27 @@ class SportController extends Controller
      */
     public function index()
     {
-        //
+        // return 
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function store(Request $request)
+    public function store(StoreSportRequest $request)
     {
-        //
+        $data = $request->validated();
+
+        if(isset($data["id"])){
+            $sport = Sport::findOrFail($data["id"]);
+            $sport->update($data);
+            return response()->json(["message" => "Mise à jour réussie !", "data" => $sport], status:201);
+        }else{
+            $sport = Sport::create($data);
+            return response()->json(["message" => "Enregistrement réussi !", "data" => $sport], status:201);
+        }
     }
 
     /**

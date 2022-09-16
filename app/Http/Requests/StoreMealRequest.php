@@ -31,7 +31,7 @@ class StoreMealRequest extends FormRequest
             "glycemia_before" => ["required", "numeric"],
             "glycemia_after" => ["required", "numeric"],
             "content" => ["required", "string"],
-            "daily_data_id" => ["required", "uuid"],
+            // "daily_data_id" => ["required", "uuid"],
         ];
     }
 

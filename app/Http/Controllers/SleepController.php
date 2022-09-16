@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Sleep;
 use Illuminate\Http\Request;
-use App\Http\Requests\SleepRequest;
+use App\Http\Requests\StoreSleepRequest;
 
 class SleepController extends Controller
 {
@@ -24,7 +24,7 @@ class SleepController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(SleepRequest $request)
+    public function store(StoreSleepRequest $request)
     {
         $data = $request->validated();
 

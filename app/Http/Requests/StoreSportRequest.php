@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SleepRequest extends FormRequest
+class StoreSportRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,6 +25,7 @@ class SleepRequest extends FormRequest
     {
         return [
             "id" => ["nullable", "uuid"],
+            "type" => ["required", "string"],
             "start_hour" => ["required", "integer", "min:0", 'max:23'],
             "end_hour" => ["required", "integer", "min:0", 'max:23'],
             "glycemia_before" => ["required", "numeric"],

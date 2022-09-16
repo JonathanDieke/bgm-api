@@ -22,11 +22,11 @@ class DatabaseSeeder extends Seeder
         \App\Models\DailyData::factory(10)->create();
         \App\Models\Meal::factory(10)->create();
         \App\Models\Sport::factory(10)->create();
-        \App\Models\Sleeping::factory(10)->create();
+        \App\Models\Sleep::factory(10)->create();
         \App\Models\Insulin::factory(10)->create();
 
         $admin = \App\Models\User::factory() ->create([
-            'pseudo' => 'legerant4',
+            'pseudo' => 'admin',
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
         ]);
 

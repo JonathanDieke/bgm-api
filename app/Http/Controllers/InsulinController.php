@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Insulin;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreInsulinRequest;
 
 class InsulinController extends Controller
 {
@@ -21,11 +22,20 @@ class InsulinController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function store(Request $request)
+    public function store(StoreInsulinRequest $request)
     {
-        //
+        $data = $request->validated();
+
+        if(isset($data["id"])){
+            $insulin = Insulin::findOrFail($data["id"]);
+            $insulin->update($data);
+            return response()->json(["message" => "Mise à jour réussie !", "data" => $insulin], status:201);
+        }else{
+            $insulin = Insulin::create($data);
+            return response()->json(["message" => "Enregistrement réussi !", "data" => $insulin], status:201);
+        }
     }
 
     /**

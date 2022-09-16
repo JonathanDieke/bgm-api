@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreMealRequest;
 use App\Http\Resources\MealCollection;
 use App\Models\Meal;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\DailyData;
 
 class MealController extends Controller
 {
@@ -30,17 +32,32 @@ class MealController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function store(StoreMealRequest $request)
-    { 
+    {
         $data = $request->validated();
 
-        if(isset($data["id"])){
-            $meal = Meal::findOrFail($data["id"]);
-            $meal->update($data);
-            return response()->json(["message" => "Mise à jour réussie !", "data" => $meal], status:201);
-        }else{
-            $meal = Meal::create($data);
-            return response()->json(["message" => "Enregistrement réussi !", "data" => $meal], status:201);
+        // Daily data déjà existante
+        if(Auth::user()->dailyData->sortByDesc('created_at')->first()?->created_at->isToday()){
+
+            if(isset($data["id"])){ // Mise à jour d'une instance de meal
+                $meal = Meal::findOrFail($data["id"]);
+                $meal->update($data);
+                return response()->json(["message" => "Mise à jour réussie !", "data" => $meal], status:201);
+            }else{ // création d'une nouvelle instance de meal
+                $data['daily_data_id'] = Auth::user()->dailyData->sortByDesc('created_at')->first()->id ;
+                $meal = Meal::create($data);
+                return response()->json(["message" => "Enregistrement réussi !", "data" => $meal], status:201);
+            }
         }
+
+        //daily data inexistante
+        // création d'une daily data
+        $dailyData = DailyData::create(["user_id" => Auth::user()->id]);
+        // récupération de l'id de la daily data
+        $data['daily_data_id'] = $dailyData->id ;
+        // création d'une nouvelle instance de meal avec l'id de la nouvelle daily data
+        $meal = Meal::create($data);
+        // retourne la réponse du traitement
+        return response()->json(["message" => "Enregistrement réussi !", "data" => $meal], status:201);
     }
 
     /**
