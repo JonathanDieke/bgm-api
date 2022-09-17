@@ -24,7 +24,7 @@ class StoreSleepRequest extends FormRequest
     public function rules()
     {
         return [
-            "id" => ["nullable", "uuid"],
+            // "id" => ["nullable", "uuid"],
             "start_hour" => ["required", "integer", "min:0", 'max:23'],
             "end_hour" => ["required", "integer", "min:0", 'max:23'],
             "glycemia_before" => ["required", "numeric"],

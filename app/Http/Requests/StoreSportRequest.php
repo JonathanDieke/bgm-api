@@ -24,7 +24,7 @@ class StoreSportRequest extends FormRequest
     public function rules()
     {
         return [
-            "id" => ["nullable", "uuid"],
+            // "id" => ["nullable", "uuid"],
             "type" => ["required", "string"],
             "start_hour" => ["required", "integer", "min:0", 'max:23'],
             "end_hour" => ["required", "integer", "min:0", 'max:23'],

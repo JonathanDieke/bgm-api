@@ -35,9 +35,10 @@ class DailyDataController extends Controller
     {
         $data = $request->validated();
 
-        if(isset($data["id"])){
-            $dailyData = DailyData::findOrFail($data["id"]); 
-            $dailyData->update($data);
+        if(Auth::user()->dailyData->sortByDesc('created_at')->first()?->created_at->isToday()){
+            $dailyData  = Auth::user()->dailyData->sortByDesc('created_at')->first();
+            $data["user_id"] = $request->user()->id ;
+            $dailyData->update($data) ;
             return response()->json(["message" => "Mise à jour réussie !", "data" => $dailyData], status:201);
         }else{
             $data["user_id"] = $request->user()->id ;
@@ -45,6 +46,15 @@ class DailyDataController extends Controller
             return response()->json(["message" => "Enregistrement réussi !", "data" => $dailyData], status:201);
         }
 
+        // if(isset($data["id"])){
+        //     $dailyData = DailyData::findOrFail($data["id"]);
+        //     $dailyData->update($data);
+        //     return response()->json(["message" => "Mise à jour réussie !", "data" => $dailyData], status:201);
+        // }else{
+        //     $data["user_id"] = $request->user()->id ;
+        //     $dailyData = DailyData::create($data);
+        //     return response()->json(["message" => "Enregistrement réussi !", "data" => $dailyData], status:201);
+        // }
     }
 
     /**

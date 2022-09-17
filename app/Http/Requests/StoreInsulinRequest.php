@@ -24,7 +24,7 @@ class StoreInsulinRequest extends FormRequest
     public function rules()
     {
         return [
-            "id" => ["nullable", "uuid"],
+            // "id" => ["nullable", "uuid"],
             "type" => ["required", "string", "in:oral,injection"],
             "mark" => ["required", "string"],
             "hour" => ["required", "integer", "min:0", 'max:23'],
