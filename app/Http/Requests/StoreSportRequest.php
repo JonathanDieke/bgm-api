@@ -30,7 +30,7 @@ class StoreSportRequest extends FormRequest
             "end_hour" => ["required", "integer", "min:0", 'max:23'],
             "glycemia_before" => ["required", "numeric"],
             "glycemia_after" => ["required", "numeric"],
-            "daily_data_id" => ["required", "uuid"],
+            // "daily_data_id" => ["required", "uuid"],
         ];
     }
 }

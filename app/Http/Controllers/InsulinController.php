@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Insulin;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreInsulinRequest;
+use App\Traits\AssociatedDailyData;
 
 class InsulinController extends Controller
 {
+    use AssociatedDailyData ;
     /**
      * Display a listing of the resource.
      *
@@ -28,14 +30,16 @@ class InsulinController extends Controller
     {
         $data = $request->validated();
 
-        if(isset($data["id"])){
-            $insulin = Insulin::findOrFail($data["id"]);
-            $insulin->update($data);
-            return response()->json(["message" => "Mise à jour réussie !", "data" => $insulin], status:201);
-        }else{
-            $insulin = Insulin::create($data);
-            return response()->json(["message" => "Enregistrement réussi !", "data" => $insulin], status:201);
-        }
+        return $this->storeOrUpdatedAssociatedDailyData($data, Insulin::class);
+
+        // if(isset($data["id"])){
+        //     $insulin = Insulin::findOrFail($data["id"]);
+        //     $insulin->update($data);
+        //     return response()->json(["message" => "Mise à jour réussie !", "data" => $insulin], status:201);
+        // }else{
+        //     $insulin = Insulin::create($data);
+        //     return response()->json(["message" => "Enregistrement réussi !", "data" => $insulin], status:201);
+        // }
     }
 
     /**

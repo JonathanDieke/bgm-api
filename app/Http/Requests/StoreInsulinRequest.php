@@ -29,7 +29,7 @@ class StoreInsulinRequest extends FormRequest
             "mark" => ["required", "string"],
             "hour" => ["required", "integer", "min:0", 'max:23'],
             "glycemia" => ["required", "numeric"],
-            "daily_data_id" => ["required", "uuid"],
+            // "daily_data_id" => ["required", "uuid"],
         ];
     }
 }

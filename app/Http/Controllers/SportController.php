@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Sport;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreSportRequest;
+use App\Traits\AssociatedDailyData;
 
 class SportController extends Controller
 {
+    use AssociatedDailyData ;
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +17,7 @@ class SportController extends Controller
      */
     public function index()
     {
-        // return 
+        // return
     }
 
     /**
@@ -28,14 +30,16 @@ class SportController extends Controller
     {
         $data = $request->validated();
 
-        if(isset($data["id"])){
-            $sport = Sport::findOrFail($data["id"]);
-            $sport->update($data);
-            return response()->json(["message" => "Mise à jour réussie !", "data" => $sport], status:201);
-        }else{
-            $sport = Sport::create($data);
-            return response()->json(["message" => "Enregistrement réussi !", "data" => $sport], status:201);
-        }
+        return $this->storeOrUpdatedAssociatedDailyData($data, Sport::class);
+
+        // if(isset($data["id"])){
+        //     $sport = Sport::findOrFail($data["id"]);
+        //     $sport->update($data);
+        //     return response()->json(["message" => "Mise à jour réussie !", "data" => $sport], status:201);
+        // }else{
+        //     $sport = Sport::create($data);
+        //     return response()->json(["message" => "Enregistrement réussi !", "data" => $sport], status:201);
+        // }
     }
 
     /**
