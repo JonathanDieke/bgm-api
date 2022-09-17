@@ -10,7 +10,7 @@ trait AssociatedDailyData{
      * @param  Array  $data
      * @param  String $Model
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Illuminate\Http\JsonResponse 
      */
     public function storeOrUpdatedAssociatedDailyData(Array $data, String $Model){
         // Daily data déjà existante
