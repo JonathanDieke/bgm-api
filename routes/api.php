@@ -38,4 +38,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::apiResource('sport', SportController::class);
     Route::apiResource('insulin', InsulinController::class);
 
+    Route::patch("/user/profile", [UserController::class, 'update']);
+
 });

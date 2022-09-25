@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserProfileRequest;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\UserProfile;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
 {
@@ -54,4 +57,22 @@ class UserController extends Controller
         return response()->json($user, 201);
     }
 
+    public function update(UserProfileRequest $request){
+        $data = $request->validated();
+
+        $profile = $request->user()->profile ;
+
+        Log::channel('daily')->debug($data);
+
+        if($profile){
+            $profile->update($data);
+        }else{
+            $data['user_id'] = Auth::id();
+            $profile = UserProfile::create($data);
+            $profile->user()->associate($request->user());
+            $profile->save();
+        }
+
+        return response()->json(["message" => "Mise à jour réussie !", "data" => $profile], status:200);
+    }
 }

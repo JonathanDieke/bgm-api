@@ -12,6 +12,7 @@ use App\Traits\HasUUID ;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class User extends Authenticatable
 {
@@ -26,7 +27,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'pseudo', 
+        'pseudo',
         'password',
     ];
 
@@ -60,7 +61,6 @@ class User extends Authenticatable
                     ->withTimestamps();
     }
 
-
     /**
      * Get all of the dailyData for the User
     *
@@ -68,6 +68,17 @@ class User extends Authenticatable
     */
     public function dailyData(): HasMany
     {
-    return $this->hasMany(DailyData::class);
+        return $this->hasMany(DailyData::class);
+    }
+
+
+    /**
+     * Get the profile associated with the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function profile(): HasOne
+    {
+        return $this->hasOne(UserProfile::class);
     }
 }
